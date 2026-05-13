@@ -1,2 +1,15 @@
 # AgentOS
 Event-driven runtime infrastructure for persistent multi-agent AI systems with scheduling, memory, observability, and governance.
+
+
+AgentOS is an experimental operating system layer for autonomous AI agents.
+
+It provides:
+- task orchestration,
+- persistent memory,
+- agent scheduling,
+- tool governance,
+- observability,
+- and multi-agent coordination.
+
+The project focuses on treating AI agents as persistent software workers instead of stateless prompt executions.
