@@ -13,3 +13,49 @@ It provides:
 - and multi-agent coordination.
 
 The project focuses on treating AI agents as persistent software workers instead of stateless prompt executions.
+
+# ARCHITECTURE
+
+```text id="crn6ye"
+                ┌─────────────────┐
+                │     Frontend    │
+                └────────┬────────┘
+                         │
+                ┌────────▼────────┐
+                │    FastAPI API  │
+                └────────┬────────┘
+                         │
+                ┌────────▼────────┐
+                │   Agent Kernel  │
+                │-----------------│
+                │ Scheduler       │
+                │ Runtime         │
+                │ Event Bus       │
+                │ Memory Manager  │
+                │ Tool Manager    │
+                │ Policy Engine   │
+                │ Observability   │
+                └────────┬────────┘
+                         │
+      ┌──────────────────┼──────────────────┐
+      │                  │                  │
+┌─────▼─────┐     ┌──────▼─────┐    ┌──────▼─────┐
+│Researcher │     │ Planner    │    │ Writer     │
+└───────────┘     └────────────┘    └────────────┘
+```
+
+---
+
+ruff check:
+
+ruff check .
+ruff check . --fix
+
+black :
+
+black .
+
+docker :
+
+docker compose up -d      (detach)
+docker compose down
