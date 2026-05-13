@@ -1,0 +1,97 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Testing
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Ruff / Black / MyPy
+# =========================
+.ruff_cache/
+.mypy_cache/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Docker
+# =========================
+docker-data/
+*.pid
+
+# =========================
+# Database Files
+# =========================
+*.sqlite3
+*.db
+
+# =========================
+# Temporary Files
+# =========================
+tmp/
+temp/
+
+# =========================
+# Qdrant
+# =========================
+qdrant_storage/
+
+# =========================
+# Redis
+# =========================
+dump.rdb
+
+# =========================
+# Misc
+# =========================
+.cache/
+
+# =========================
+# Requirements
+# =========================
+requirements/dev.txt

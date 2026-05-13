@@ -45,3 +45,17 @@ The project focuses on treating AI agents as persistent software workers instead
 ```
 
 ---
+
+ruff check:
+
+ruff check .
+ruff check . --fix
+
+black :
+
+black .
+
+docker :
+
+docker compose up -d      (detach)
+docker compose down
