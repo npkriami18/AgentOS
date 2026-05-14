@@ -15,6 +15,7 @@ build/
 dist/
 *.egg-info/
 .eggs/
+__pypackages__/
 
 # =========================
 # Environment Variables
@@ -22,13 +23,20 @@ dist/
 .env
 .env.*
 !.env.example
+.envrc
+.direnv/
+.python-version
 
 # =========================
 # Testing
 # =========================
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+coverage.xml
+.hypothesis/
+.tox/
 
 # =========================
 # Ruff / Black / MyPy
@@ -75,6 +83,8 @@ docker-data/
 # =========================
 tmp/
 temp/
+*.swp
+*.swo
 
 # =========================
 # Qdrant
@@ -90,6 +100,7 @@ dump.rdb
 # Misc
 # =========================
 .cache/
+.uv/
 
 # =========================
 # Requirements
