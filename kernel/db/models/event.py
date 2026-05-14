@@ -10,17 +10,9 @@ class Event(Base):
     __tablename__ = "events"
 
     id: Mapped[str] = mapped_column(
-        String,
-        primary_key=True,
-        default=lambda: str(uuid4())
+        String, primary_key=True, default=lambda: str(uuid4())
     )
 
-    type: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    type: Mapped[str] = mapped_column(String, nullable=False)
 
-    payload: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    payload: Mapped[str] = mapped_column(String, nullable=False)

@@ -2,9 +2,7 @@ from kernel.db.models.task import Task
 
 
 async def test_task_creation(db_session):
-    task = Task(
-        title="Research vector DBs"
-    )
+    task = Task(title="Research vector DBs")
 
     db_session.add(task)
 

@@ -1,5 +1,4 @@
 import pytest_asyncio
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from kernel.db.session import AsyncSessionLocal
