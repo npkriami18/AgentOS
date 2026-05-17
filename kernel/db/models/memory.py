@@ -10,12 +10,7 @@ class MemoryEntry(Base):
     __tablename__ = "memory_entries"
 
     id: Mapped[str] = mapped_column(
-        String,
-        primary_key=True,
-        default=lambda: str(uuid4())
+        String, primary_key=True, default=lambda: str(uuid4())
     )
 
-    content: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    content: Mapped[str] = mapped_column(String, nullable=False)

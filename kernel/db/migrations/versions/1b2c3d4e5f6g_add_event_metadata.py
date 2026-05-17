@@ -7,9 +7,8 @@ Create Date: 2026-05-17 13:00:00.000000
 
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 revision: str = "1b2c3d4e5f6g"
 down_revision: Union[str, Sequence[str], None] = "a53eb75a18b6"
@@ -34,13 +33,11 @@ def upgrade() -> None:
     op.execute("UPDATE events SET timestamp = NOW() WHERE timestamp IS NULL")
 
     # Wrap old string payload inside JSON so no cast failure occurs.
-    op.execute(
-        """
+    op.execute("""
         UPDATE events
         SET payload_json = json_build_object('raw', payload)
         WHERE payload_json IS NULL
-        """
-    )
+        """)
 
     op.drop_column("events", "payload")
     op.alter_column("events", "payload_json", new_column_name="payload")

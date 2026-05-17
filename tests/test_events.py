@@ -51,9 +51,7 @@ async def test_event_persistence():
     )
 
     async with AsyncSessionLocal() as session:
-        result = await session.execute(
-            select(Event).where(Event.id == created.id)
-        )
+        result = await session.execute(select(Event).where(Event.id == created.id))
         saved_event = result.scalar_one()
 
     assert saved_event.type == TASK_COMPLETED
