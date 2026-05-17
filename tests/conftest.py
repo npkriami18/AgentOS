@@ -1,11 +1,10 @@
-import pytest_asyncio
-from sqlalchemy.ext.asyncio import AsyncSession
+import asyncio
 
-from kernel.db.session import AsyncSessionLocal
+import pytest
 
 
-@pytest_asyncio.fixture
-async def db_session() -> AsyncSession:
-    async with AsyncSessionLocal() as session:
-        yield session
-        await session.rollback()
+@pytest.fixture(scope="session")
+def event_loop():
+    loop = asyncio.new_event_loop()
+    yield loop
+    loop.close()
