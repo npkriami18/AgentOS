@@ -10,17 +10,9 @@ class Task(Base):
     __tablename__ = "tasks"
 
     id: Mapped[str] = mapped_column(
-        String,
-        primary_key=True,
-        default=lambda: str(uuid4())
+        String, primary_key=True, default=lambda: str(uuid4())
     )
 
-    title: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    title: Mapped[str] = mapped_column(String, nullable=False)
 
-    status: Mapped[str] = mapped_column(
-        String,
-        default="PENDING"
-    )
+    status: Mapped[str] = mapped_column(String, default="PENDING")

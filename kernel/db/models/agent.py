@@ -10,22 +10,11 @@ class Agent(Base):
     __tablename__ = "agents"
 
     id: Mapped[str] = mapped_column(
-        String,
-        primary_key=True,
-        default=lambda: str(uuid4())
+        String, primary_key=True, default=lambda: str(uuid4())
     )
 
-    name: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    name: Mapped[str] = mapped_column(String, nullable=False)
 
-    role: Mapped[str] = mapped_column(
-        String,
-        nullable=False
-    )
+    role: Mapped[str] = mapped_column(String, nullable=False)
 
-    status: Mapped[str] = mapped_column(
-        String,
-        default="idle"
-    )
+    status: Mapped[str] = mapped_column(String, default="idle")
