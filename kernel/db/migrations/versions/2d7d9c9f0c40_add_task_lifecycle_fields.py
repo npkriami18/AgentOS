@@ -54,8 +54,12 @@ def upgrade() -> None:
     )
     op.create_index(op.f("ix_tasks_created_at"), "tasks", ["created_at"], unique=False)
 
-    op.execute("UPDATE tasks SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL")
-    op.execute("UPDATE tasks SET updated_at = CURRENT_TIMESTAMP WHERE updated_at IS NULL")
+    op.execute(
+        "UPDATE tasks SET created_at = CURRENT_TIMESTAMP WHERE created_at IS NULL"
+    )
+    op.execute(
+        "UPDATE tasks SET updated_at = CURRENT_TIMESTAMP WHERE updated_at IS NULL"
+    )
 
     op.alter_column("tasks", "created_at", nullable=False)
     op.alter_column("tasks", "updated_at", nullable=False)

@@ -26,7 +26,11 @@ class Task(Base):
 
     title: Mapped[str] = mapped_column(String, nullable=False)
 
-    status: Mapped[str] = mapped_column(String, default=TaskStatus.PENDING)
+    status: Mapped[str] = mapped_column(
+        String,
+        default=TaskStatus.PENDING.value,
+        nullable=False,
+    )
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

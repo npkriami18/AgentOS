@@ -1,7 +1,7 @@
 """add agent metadata and tools
 
-Revision ID: <new_revision>
-Revises: 1b2c3d4e5f6g
+Revision ID: 6f6eee45709c
+Revises: 2d7d9c9f0c40
 Create Date: 2026-05-17 00:00:00.000000
 """
 
@@ -10,8 +10,8 @@ from typing import Sequence, Union
 import sqlalchemy as sa
 from alembic import op
 
-revision: str = "<new_revision>"
-down_revision: Union[str, Sequence[str], None] = "1b2c3d4e5f6g"
+revision: str = "6f6eee45709c"
+down_revision: Union[str, Sequence[str], None] = "2d7d9c9f0c40"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

@@ -467,27 +467,27 @@ class BaseTool:
 
 ### Tool Manager
 
-* [ ] Tool registry
-* [ ] Permission checks
-* [ ] Timeout limits
-* [ ] Rate limiting
-* [ ] Tool logs
+* [x] Tool registry
+* [x] Permission checks
+* [x] Timeout limits
+* [x] Rate limiting
+* [x] Tool logs
 
 ---
 
 ### Initial Tools
 
-* calculator
-* web search
-* file reader
+* [x] calculator
+* [x] web search
+* [x] file reader
 
 ---
 
 ### Tests
 
-* [ ] Permission enforcement
-* [ ] Timeout tests
-* [ ] Rate limit tests
+* [x] Permission enforcement
+* [x] Timeout tests
+* [x] Rate limit tests
 
 ---
 
