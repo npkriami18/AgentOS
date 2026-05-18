@@ -1,7 +1,9 @@
+import asyncio
+
 import pytest
 from sqlalchemy import delete
 
-from kernel.db.models.task import Task
+from kernel.db.models.task import Task, TaskStatus
 from kernel.db.session import AsyncSessionLocal
 from kernel.events.bus import EventBus
 from kernel.runtime.engine import RuntimeEngine
@@ -50,7 +52,7 @@ async def test_runtime_executes_pending_task():
     assert worked is True
     assert executed == [task.id]
     assert refreshed is not None
-    assert refreshed.status == "COMPLETED"
+    assert refreshed.status == TaskStatus.COMPLETED
 
 
 @pytest.mark.asyncio
@@ -73,4 +75,79 @@ async def test_runtime_marks_failed_task():
     refreshed = await fetch_task(task.id)
 
     assert refreshed is not None
-    assert refreshed.status == "FAILED"
+    assert refreshed.status == TaskStatus.FAILED
+    assert refreshed.last_error == "boom"
+
+
+@pytest.mark.asyncio
+async def test_runtime_retries_before_failing():
+    await clear_tasks()
+    task = await create_task("Retry task")
+
+    async with AsyncSessionLocal() as session:
+        stored = await session.get(Task, task.id)
+        assert stored is not None
+        stored.max_retries = 1
+        await session.commit()
+
+    attempts = 0
+
+    async def executor(task_obj: Task) -> None:
+        nonlocal attempts
+        attempts += 1
+        raise RuntimeError("retry me")
+
+    engine = RuntimeEngine(
+        scheduler=Scheduler(AsyncSessionLocal),
+        event_bus=EventBus(AsyncSessionLocal),
+        executor=executor,
+    )
+
+    with pytest.raises(RuntimeError, match="retry me"):
+        await engine.run_once()
+
+    after_first_run = await fetch_task(task.id)
+
+    assert after_first_run is not None
+    assert after_first_run.status == TaskStatus.RETRYING
+    assert after_first_run.attempt_count == 1
+
+    with pytest.raises(RuntimeError, match="retry me"):
+        await engine.run_once()
+
+    after_second_run = await fetch_task(task.id)
+
+    assert after_second_run is not None
+    assert after_second_run.status == TaskStatus.FAILED
+    assert after_second_run.attempt_count == 2
+    assert attempts == 2
+
+
+@pytest.mark.asyncio
+async def test_runtime_marks_timed_out_task_failed():
+    await clear_tasks()
+    task = await create_task("Timeout task")
+
+    async with AsyncSessionLocal() as session:
+        stored = await session.get(Task, task.id)
+        assert stored is not None
+        stored.timeout_seconds = 0
+        await session.commit()
+
+    async def executor(task_obj: Task) -> None:
+        await asyncio.sleep(0.01)
+
+    engine = RuntimeEngine(
+        scheduler=Scheduler(AsyncSessionLocal),
+        event_bus=EventBus(AsyncSessionLocal),
+        executor=executor,
+    )
+
+    with pytest.raises(TimeoutError, match="Task timed out after 0 seconds"):
+        await engine.run_once()
+
+    refreshed = await fetch_task(task.id)
+
+    assert refreshed is not None
+    assert refreshed.status == TaskStatus.FAILED
+    assert refreshed.last_error == "Task timed out after 0 seconds"
